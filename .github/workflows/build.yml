@@ -1,4 +1,3 @@
-
 name: Flutter APK Build
 
 on:
@@ -26,21 +25,21 @@ jobs:
         with:
           flutter-version: '3.19.x'
 
-      - name: Build Complete Fresh Project
+      - name: Build Fresh Project with Permissions
         run: |
           cd ..
           flutter create --org com.harsh.alya alya_project --platforms android
           cd alya_project
           
-          # Hamaari custom files copy kar rahe hain
+          # यहाँ परमिशन जोड़ रहे हैं ताकि इंटरनेट चले
+          sed -i '/<\/manifest>/i \    <uses-permission android:name="android.permission.INTERNET"/>' android/app/src/main/AndroidManifest.xml
+          
           cp -f $GITHUB_WORKSPACE/pubspec.yaml ./pubspec.yaml
           cp -f $GITHUB_WORKSPACE/lib/main.dart ./lib/main.dart
           
-          # Dependencies install aur APK build isi folder mein hoga
           flutter pub get
           flutter build apk --release --no-tree-shake-icons
           
-          # Build khatam hone ke baad APK ko wapas sahi jagah bhej rahe hain
           mkdir -p $GITHUB_WORKSPACE/build/app/outputs/flutter-apk/
           cp build/app/outputs/flutter-apk/app-release.apk $GITHUB_WORKSPACE/build/app/outputs/flutter-apk/app-release.apk
 
@@ -49,4 +48,3 @@ jobs:
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-

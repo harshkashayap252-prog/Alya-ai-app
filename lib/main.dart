@@ -30,7 +30,7 @@ class _ChatScreenState extends State<ChatScreen> {
   bool _isLoading = false;
 
   // 🔑 Teri ekdum fresh working API key auto-configured
-  final String apiKey = "AIzaSyA0uxvVbd8QhM3pwJGSENbtWdOuVEASRhw";
+  final String apiKey = "AIzaSyBkI5jq4vUV_C77Bs6_ZTeUc0703v_56SQ;
 
   void sendMessage(String text) async {
     if (text.trim().isEmpty) return;
